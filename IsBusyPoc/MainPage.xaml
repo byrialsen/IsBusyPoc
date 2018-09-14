@@ -5,10 +5,38 @@
     xmlns:local="using:IsBusyPoc"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:toolkitControl="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:brewerControls="using:XamlBrewer.Uwp.Controls"
+    xmlns:telerikPrimatives="using:Telerik.UI.Xaml.Controls.Primitives"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
 
+        <ContentControl Grid.Row="0" >
+            <Grid>
+                <!-- content -->
+                    <Grid>
+                        <Image Stretch="UniformToFill" Source="/Assets/Wallpaper.jpg" />
+                        <TextBox Text="You should not be able to tab or select this text using mouse" FontSize="20" Foreground="White" Width="300" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                    </Grid>
+
+                <!-- overlays -->
+                <toolkitControl:Loading Style="{StaticResource LoadingStyleEx}" x:Name="LoadingControl" Background="Transparent" IsLoading="{Binding IsLoadingToolkit}" >
+                    <ContentControl HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" ContentTemplate="{StaticResource ModalDialogIsBusyOverlayDataTemplate}" />
+                </toolkitControl:Loading>
+
+                <telerikPrimatives:RadBusyIndicator Background="#80FFFF00" ContentPosition="Bottom" IsActive="{Binding IsLoadingTelerik}" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Content="Is Loading" AnimationStyle="AnimationStyle5" />
+            </Grid>
+        </ContentControl>
+
+        <StackPanel Orientation="Horizontal" Grid.Row="1">
+            <Button Content="IsLoading toolkit" Margin="0,8,8,8" Click="OnIsLoadingClick" HorizontalAlignment="Center" VerticalAlignment="Center" />
+            <Button Content="IsLoading telerik" Click="OnIsLoading2Click" HorizontalAlignment="Center" VerticalAlignment="Center" />
+        </StackPanel>
     </Grid>
 </Page>
